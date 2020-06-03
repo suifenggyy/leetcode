@@ -85,8 +85,36 @@ public class LeetCode1224_MaxEqualFreq {
 		return max + 1;
 	}
 
+	public static int maxEqualFreq_Freq(int[] nums) {
+		if (nums.length <= 2) {
+			return nums.length;
+		}
+		Map<Integer, Integer> cntMap = new HashMap<>();
+		int maxCnt = 0;
+		int maxFreq = 0;
+		int preMaxFreq = 0;
+		int cnt;
+		int len = 0;
+		for (int i = 0; i < nums.length; i++) {
+			cnt = cntMap.getOrDefault(nums[i], 0);
+			if (cnt == maxCnt) {
+				preMaxFreq = maxFreq - 1;
+				maxCnt += 1;
+				maxFreq = 1;
+			} else if (cnt == maxCnt - 1) {
+				maxFreq += 1;
+			}
+			cntMap.put(nums[i], cnt + 1);
+			if (cntMap.size() == 1 || cntMap.size() == i + 1 || maxFreq == 1 && preMaxFreq == i || maxFreq == i && preMaxFreq == 1) {
+				len = i + 1;
+			}
+
+		}
+		return len;
+	}
+
 	public static void main(String[] args) {
 		int[] nums = {1,1,1,2,3,3,3,4,4,4,5,5,5,42,97,5,46};
-		System.out.println(maxEqualFreq_map(nums));
+		System.out.println(maxEqualFreq_Freq(nums));
 	}
 }

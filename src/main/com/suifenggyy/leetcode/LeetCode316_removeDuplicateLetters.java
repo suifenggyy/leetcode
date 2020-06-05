@@ -1,9 +1,6 @@
 package com.suifenggyy.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author hzgongyongyue
@@ -11,7 +8,7 @@ import java.util.Set;
  * @date 2020/6/5 2:07
  */
 public class LeetCode316_removeDuplicateLetters {
-	public static String removeDuplicateLetters(String s) {
+	public static String removeDuplicateLetters_Error(String s) {
 		if (s == null || s.length() <= 1) {
 			return s;
 		}
@@ -40,7 +37,38 @@ public class LeetCode316_removeDuplicateLetters {
 		return stringBuilder.toString();
 	}
 
+	public static String removeDuplicateLetters(String s) {
+		if (s == null || s.length() <= 1) {
+			return s;
+		}
+		Map<Character, Integer> maxIndex = new HashMap<>(26);
+		Deque<Character> stack = new ArrayDeque<>(26);
+		Set<Character> containSet = new HashSet<>(26);
+		Character ch;
+		for (int i =0; i < s.length(); i++) {
+			ch = s.charAt(i);
+			maxIndex.put(ch, i);
+		}
+
+		for (int i =0; i < s.length(); i++) {
+			ch = s.charAt(i);
+			if (!containSet.contains(ch)) {
+				while (stack.size() > 0 && stack.peekLast() > ch && maxIndex.get(stack.peekLast()) > i) {
+					containSet.remove(stack.pollLast());
+				}
+				stack.add(ch);
+				containSet.add(ch);
+			}
+		}
+		StringBuilder stringBuilder = new StringBuilder();
+		while (! stack.isEmpty()) {
+			stringBuilder.append(stack.pollFirst());
+		}
+		return stringBuilder.toString();
+
+	}
+
 	public static void main(String[] args) {
-		System.out.println(removeDuplicateLetters("abacb"));
+		System.out.println(removeDuplicateLetters("cbacdcbc"));
 	}
 }

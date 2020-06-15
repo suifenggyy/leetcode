@@ -61,6 +61,33 @@ public class LeetCode1300_findBestValue {
 		return res;
 	}
 
+	public String longestCommonPrefix(String[] strs) {
+		if (strs.length == 0) {
+			return "";
+		}
+		if (strs.length == 1) {
+			return strs[0];
+		}
+		StringBuilder stringBuilder = new StringBuilder();
+		boolean flag;
+		for (int i = 0; i < strs[0].length(); i ++) {
+			flag = true;
+			for (int j = 1; j < strs.length; j++) {
+				if (strs[j].length() < i || strs[0].charAt(i) != strs[j].charAt(i)) {
+					flag = false;
+					break;
+				}
+			}
+			if (flag) {
+				stringBuilder.append(strs[0].charAt(i));
+			} else {
+				break;
+			}
+		}
+		return stringBuilder.toString();
+
+	}
+
 	public static void main(String[] args) {
 		LeetCode1300_findBestValue soution = new LeetCode1300_findBestValue();
 		int[] arr = {1547, 83230, 57084, 93444, 70879};

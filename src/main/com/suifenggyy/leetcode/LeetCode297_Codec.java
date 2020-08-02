@@ -8,14 +8,6 @@ import java.util.LinkedList;
  * @date 2020/6/16 0:10
  */
 public class LeetCode297_Codec {
-
-	static class TreeNode {
-	    int val;
-	    TreeNode left;
-	    TreeNode right;
-	    TreeNode(int x) { val = x; }
-	}
-
 	static class Codec {
 
 		// Encodes a tree to a single string.
